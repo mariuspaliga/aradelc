@@ -18,7 +18,7 @@ jobs:
 
   backend:
     needs: [apply-terraform]
-    uses: mariuspa/aradelc/.github/workflows/deploy.yml@gha/initial
+    uses: mariuspaliga/aradelc/.github/workflows/deploy.yml@gha/initial
     with:
       environment: dev
     secrets:
