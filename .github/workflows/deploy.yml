@@ -1,0 +1,31 @@
+name: Deploy Backend
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: AWS environment
+        type: string
+        required: true
+    secrets:
+      aws-access-key-id:
+        description: AWS Access key ID
+        required: true
+      aws-secret-access-key:
+        description: AWS Secret access key
+        required: true
+
+env:
+  AWS_REGION: ap-south-1
+
+jobs:
+  build-and-push:
+    name: build and deploy
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build backend
+        run: |
+          echo "Docker build"
