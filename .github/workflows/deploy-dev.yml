@@ -9,6 +9,7 @@ concurrency: dev_environment
 
 jobs:
   apply-terraform:
+    environment: dev
     runs-on: ubuntu-20.04
 
     steps:
