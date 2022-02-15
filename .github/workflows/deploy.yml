@@ -19,7 +19,7 @@ env:
   AWS_REGION: ap-south-1
 
 jobs:
-  build-and-push:
+  deployment:
     environment: ${{ inputs.environment }}
     name: build and deploy
     runs-on: ubuntu-20.04
