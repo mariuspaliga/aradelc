@@ -19,7 +19,7 @@ jobs:
 
   backend:
     needs: [apply-terraform]
-    uses: mariuspaliga/aradelc/.github/workflows/deploy.yml@master
+    uses: mariuspaliga/aradelc/.github/workflows/deploy.yaml@master
     with:
       environment: dev
     secrets:
