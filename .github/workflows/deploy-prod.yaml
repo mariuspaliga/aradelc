@@ -1,15 +1,14 @@
-name: Deploy to DEV
+name: Deploy to PROD
 
 on:
   push:
     tags:
-      DEPLOY-DEV-*
+      - DEPLOY-PROD
 
-concurrency: dev_environment
+concurrency: prod_environment
 
 jobs:
   apply-terraform:
-    environment: dev
     runs-on: ubuntu-20.04
 
     steps:
@@ -19,9 +18,9 @@ jobs:
 
   backend:
     needs: [apply-terraform]
-    uses: mariuspaliga/aradelc/.github/workflows/deploy.yml@master
+    uses: mariuspa/aradelc/.github/workflows/deploy.yml@master
     with:
-      environment: dev
+      environment: prod
     secrets:
       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

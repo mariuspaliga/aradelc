@@ -30,3 +30,7 @@ jobs:
       - name: Build backend
         run: |
           echo "Docker build"
+
+      - name: Deploy
+        run: |
+          echo "Deploy to ${{ inputs.environment }}"
