@@ -1,0 +1,27 @@
+name: Deploy to DEV
+
+on:
+  push:
+    tags:
+      DEPLOY-DEV-*
+
+concurrency: dev_environment
+
+jobs:
+  apply-terraform:
+    environment: dev
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Run terraform
+        run: |
+          echo "terraform apply"
+
+  backend:
+    needs: [apply-terraform]
+    uses: mariuspaliga/aradelc/.github/workflows/deploy.yml@master
+    with:
+      environment: dev
+    secrets:
+      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

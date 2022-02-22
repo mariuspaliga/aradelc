@@ -1,0 +1,26 @@
+name: Deploy to PROD
+
+on:
+  push:
+    tags:
+      - DEPLOY-PROD
+
+concurrency: prod_environment
+
+jobs:
+  apply-terraform:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Run terraform
+        run: |
+          echo "terraform apply"
+
+  backend:
+    needs: [apply-terraform]
+    uses: mariuspa/aradelc/.github/workflows/deploy.yml@master
+    with:
+      environment: prod
+    secrets:
+      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
