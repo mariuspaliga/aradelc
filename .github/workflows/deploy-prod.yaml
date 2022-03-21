@@ -9,13 +9,34 @@ on:
 concurrency: prod_environment
 
 jobs:
+  confirm-deploy:
+    runs-on: ubuntu-20.04
+    # needs: [plan-terraform]
+    environment: prod
+    steps:
+      - name: Confirm deploy to PROD
+        run: |
+          echo "deployment confirmed"
+
+  plan-terraform:
+    runs-on: ubuntu-20.04
+    needs: [confirm-deploy]
+
+    steps:
+      - name: Run terraform
+        run: |
+          echo "terraform plan"
+
   apply-terraform:
     runs-on: ubuntu-20.04
+    needs: [plan-terraform]
+    environment: prod
 
     steps:
       - name: Run terraform
         run: |
           echo "terraform apply"
+
 
   backend:
     needs: [apply-terraform]
@@ -25,3 +46,4 @@ jobs:
     secrets:
       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
