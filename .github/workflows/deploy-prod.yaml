@@ -5,6 +5,9 @@ on:
     tags:
       - DEPLOY-PROD
       - '[0-9]+.[0-9]+.[0-9]+*'
+  workflow_run:
+    workflows: ['Deploy to STAGE']
+    types: [completed]
 
 concurrency: prod_environment
 
